@@ -43,5 +43,7 @@ All the examples have a Sentinel/Cluster code hasn't been tested yet.
 ##TO-DO
 * Add Messaging Examples
 * Add Cluster/Sentinel Examples
+* Add Spring Integration Examples 
+* Add Spring XD Examples
 * Add .NET Examples
  
