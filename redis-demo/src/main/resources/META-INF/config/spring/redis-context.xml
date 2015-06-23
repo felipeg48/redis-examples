@@ -15,7 +15,7 @@
 	<bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate"
 		p:connectionFactory-ref="jedisConnectionFactory" />
 		
-	
+	<!-- 
 	<bean id="sentinelConfig" class="org.springframework.data.redis.connection.RedisSentinelConfiguration" 
 		p:sentinels-ref="sentinels"/>	
 	
@@ -28,5 +28,6 @@
 		c:host="127.0.0.1" c:port="26379"/>
 	<bean id="sentinel2" class="org.springframework.data.redis.connection.RedisNode" 
 		c:host="127.0.0.1" c:port="26380"/>
-
+	-->
+	
 </beans>

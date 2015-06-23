@@ -24,6 +24,15 @@ public class RedisSpringBootApplication implements CommandLineRunner {
 		this.service.saveTable("TABLEY:" + uuid, uuid);
 		
 		Assert.isTrue(uuid.equals(service.getValue("TABLEY:"+uuid)));
+		
+		//Sending Multiple
+		String[] rows = { 
+				"TABLEX:" + UUID.randomUUID().toString() + "," + UUID.randomUUID().toString(),
+				"TABLEY:" + UUID.randomUUID().toString() + "," + UUID.randomUUID().toString(),
+				"TABLEZ:" + UUID.randomUUID().toString() + "," + UUID.randomUUID().toString()
+				};		
+		this.service.saveMulti(rows);
+		
 	}
 	
     public static void main(String[] args) {
