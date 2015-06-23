@@ -13,7 +13,7 @@ This app shows the simple way to use the spring-data-redis with Spriong Boot. If
 ```
 $ mvn spring-boot:run
 ```
-_NOTES: if you want to use a different host:port you can change it in the src/main/resources/application.properties file_
+_NOTES: if you want to use a different **host:port** you can change it in the **src/main/resources/application.properties file**_
 
 * **RedisSpringApplication.java**
 
