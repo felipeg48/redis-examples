@@ -1,5 +1,5 @@
 # Redis Examples
-The idea of this repo is to collect several examples of redis development, by using drivers like [Jedis](https://github.com/xetorthio/jedis) and frameworks like Spring and [Spring Data Redis](http://projects.spring.io/spring-data-redis/).
+The idea of this repo is to collect several examples of redis development, by using drivers like [Jedis](https://github.com/xetorthio/jedis) and frameworks like [Spring](http://projects.spring.io/spring-framework/) and [Spring Data Redis](http://projects.spring.io/spring-data-redis/).
 
 ##redis-demo
 
