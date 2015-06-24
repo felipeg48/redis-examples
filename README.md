@@ -37,13 +37,16 @@ $ mvn exec:java -Dexec.mainClass="io.redis.demo.RedisJedisApplication"
 ```
 
 **NOTES**:
-All the examples have a Sentinel/Cluster code hasn't been tested yet.
+- All the examples have a Sentinel/Cluster code hasn't been tested yet.
+- Take a note at the **SimpleRedisService** class that is reused by most of the classes.
+
 
 
 ##TO-DO
-* Add Messaging Examples
-* Add Cluster/Sentinel Examples
-* Add Spring Integration Examples 
-* Add Spring XD Examples
-* Add .NET Examples
+- [X] Basic Examples 
+- [ ] Add Messaging Examples
+- [ ] Add Cluster/Sentinel Examples
+- [ ] Add Spring Integration Examples 
+- [ ] Add Spring XD Examples
+- [ ] Add .NET Examples
  
