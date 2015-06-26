@@ -2,6 +2,10 @@ package io.redis.service;
 
 import io.redis.exception.RedisNotFoundException;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
@@ -56,6 +60,52 @@ public class SimpleRedisService {
 				return null;
 			}
 			
+		});
+	}
+	
+	/**
+	 * Example of executing pipelined for getting multiple values and return a Map
+	 * @param keys an array of Strings (keys)
+	 * @return Map<String,String> If the key doesn't exits that key/value pair will be key/null result.
+	 */
+	public Map<String,String> getMulti(String ...keys){
+		List<Object> result = this.redisTemplate.executePipelined(new RedisCallback<Object>(){
+
+			@Override
+			public Object doInRedis(RedisConnection connection)
+					throws DataAccessException {
+				StringRedisConnection stringRedisConn = (StringRedisConnection)connection;
+				for(String key: keys){
+						stringRedisConn.get(key);
+				}
+				return null;
+			}
+		});
+		Map<String,String> map = new HashMap<String,String>();
+		for(int i=0; i<keys.length;i++){
+			if(result.get(i) == null)
+				map.put(keys[i], null);
+			else 
+				map.put(keys[i], result.get(i).toString());
+		}
+		return map;
+	}
+	
+	/**
+	 * Deletes multiple keys at once.
+	 * @param keys array of Strings (keys)
+	 */
+	public void deleteMulti(String ...keys){
+		this.redisTemplate.executePipelined(new RedisCallback<Object>(){
+
+			@Override
+			public Object doInRedis(RedisConnection connection)
+					throws DataAccessException {
+				StringRedisConnection stringRedisConn = (StringRedisConnection)connection;
+				stringRedisConn.del(keys);
+				
+				return null;
+			}
 		});
 	}
 }

@@ -2,6 +2,7 @@ package io.redis.demo;
 
 import io.redis.service.SimpleRedisService;
 
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,18 +21,30 @@ public class RedisSpringBootApplication implements CommandLineRunner {
 	public void run(String... arg0) throws Exception {
 		String uuid = UUID.randomUUID().toString();
 		this.service.saveTable("TABLEX:" + uuid, uuid);
+		this.service.deleteValue("TABLEX:" + uuid);
+		
 		uuid = UUID.randomUUID().toString();
 		this.service.saveTable("TABLEY:" + uuid, uuid);
-		
 		Assert.isTrue(uuid.equals(service.getValue("TABLEY:"+uuid)));
+		this.service.deleteValue("TABLEY:" + uuid);
 		
 		//Sending Multiple
 		String[] rows = { 
-				"TABLEX:" + UUID.randomUUID().toString() + "," + UUID.randomUUID().toString(),
-				"TABLEY:" + UUID.randomUUID().toString() + "," + UUID.randomUUID().toString(),
-				"TABLEZ:" + UUID.randomUUID().toString() + "," + UUID.randomUUID().toString()
+				"TABLEX:X" + "," + UUID.randomUUID().toString(),
+				"TABLEY:Y" + "," + UUID.randomUUID().toString(),
+				"TABLEZ:Z" + "," + UUID.randomUUID().toString()
 				};		
 		this.service.saveMulti(rows);
+		
+		//Getting Multiple
+		String[] keys = { "TABLEX:X", "TABLEY:Y", "TABLEZ:Z"};
+		Map<String,String> map = this.service.getMulti(keys);
+		
+		Assert.isTrue(map!=null);
+		Assert.isTrue(map.size() == 3,"MUst have 3 key/value pairs");
+		
+		//Del Multiple
+		this.service.deleteMulti(keys);
 		
 	}
 	
