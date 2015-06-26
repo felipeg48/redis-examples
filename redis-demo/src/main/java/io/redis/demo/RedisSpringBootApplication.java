@@ -36,7 +36,7 @@ public class RedisSpringBootApplication implements CommandLineRunner {
 				};		
 		this.service.saveMulti(rows);
 		
-		//Getting Multiple
+		//Getting Get/Delete Multiple
 		String[] keys = { "TABLEX:X", "TABLEY:Y", "TABLEZ:Z"};
 		Map<String,String> map = this.service.getAndDeleteMulti(keys);
 		
@@ -46,7 +46,7 @@ public class RedisSpringBootApplication implements CommandLineRunner {
 		Assert.isTrue(map.size() == 3,"MUst have 3 key/value pairs");
 		
 		//Del Multiple
-		this.service.deleteMulti(keys);
+		//this.service.deleteMulti(keys);
 		
 	}
 	
