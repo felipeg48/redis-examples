@@ -108,4 +108,33 @@ public class SimpleRedisService {
 			}
 		});
 	}
+	
+	/**
+	 * Get and Delete Keys
+	 * @param keys array of Strings (keys)
+	 * @return Map<String,String> If the key doesn't exits that key/value pair will be key/null result.
+	 */
+	public Map<String,String> getAndDeleteMulti(String ...keys){
+		List<Object> result = this.redisTemplate.executePipelined(new RedisCallback<Object>(){
+
+			@Override
+			public Object doInRedis(RedisConnection connection)
+					throws DataAccessException {
+				StringRedisConnection stringRedisConn = (StringRedisConnection)connection;
+				for(String key: keys){
+						stringRedisConn.get(key);
+				}
+				stringRedisConn.del(keys);
+				return null;
+			}
+		});
+		Map<String,String> map = new HashMap<String,String>();
+		for(int i=0; i<keys.length;i++){
+			if(result.get(i) == null)
+				map.put(keys[i], null);
+			else 
+				map.put(keys[i], result.get(i).toString());
+		}
+		return map;
+	}
 }

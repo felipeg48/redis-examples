@@ -38,9 +38,11 @@ public class RedisSpringBootApplication implements CommandLineRunner {
 		
 		//Getting Multiple
 		String[] keys = { "TABLEX:X", "TABLEY:Y", "TABLEZ:Z"};
-		Map<String,String> map = this.service.getMulti(keys);
+		Map<String,String> map = this.service.getAndDeleteMulti(keys);
 		
 		Assert.isTrue(map!=null);
+		Assert.isTrue(map.containsKey("TABLEY:Y"));
+		Assert.isTrue(map.get("TABLEZ:Z")!=null,"The Value for Key: 'TABLEZ:Z' must exists");
 		Assert.isTrue(map.size() == 3,"MUst have 3 key/value pairs");
 		
 		//Del Multiple
